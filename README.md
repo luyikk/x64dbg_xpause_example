@@ -1,4 +1,4 @@
-# x64dbg rust Rust XPause example
+# x64dbg Rust XPause example
 
 ### 1.build 
 ```shell
