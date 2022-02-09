@@ -10,7 +10,7 @@ macro_rules! dbs {
 }
 
 #[no_mangle]
-pub unsafe extern "stdcall" fn pluginit(init:*mut PLUG_INITSTRUCT)->bool{
+pub unsafe extern "C" fn pluginit(init:*mut PLUG_INITSTRUCT)->bool{
 
     (*init).pluginVersion=1;
     (*init).sdkVersion =PLUG_SDKVERSION as i32;
@@ -22,7 +22,7 @@ pub unsafe extern "stdcall" fn pluginit(init:*mut PLUG_INITSTRUCT)->bool{
 }
 
 #[no_mangle]
-pub unsafe extern "stdcall" fn plugsetup(setup_struct:* const PLUG_SETUPSTRUCT) {
+pub unsafe extern "C" fn plugsetup(setup_struct:* const PLUG_SETUPSTRUCT) {
     _plugin_registercallback(PLUGIN_HANDLE, CBTYPE_CB_CREATETHREAD, Some(cb_create_thread));
     _plugin_registercommand(PLUGIN_HANDLE, dbs!("rpause"), Some(cb_x_pause), true);
     _plugin_registercallback(PLUGIN_HANDLE, CBTYPE_CB_MENUENTRY, Some(cb_menu_entry));
@@ -54,9 +54,4 @@ unsafe extern "C" fn cb_x_pause(_argc:i32,_argsv: *mut *mut c_char)->bool{
 #[no_mangle]
 pub extern "stdcall" fn plugstop()->bool {
     true
-}
-
-#[no_mangle]
-pub extern "stdcall" fn pluginSetup(){
-
 }
