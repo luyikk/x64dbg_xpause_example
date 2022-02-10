@@ -10,4 +10,4 @@ crate-type=["dylib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dbg64_plugins_sdk_sys = "0.1"
+dbg64_plugins_sdk_sys = "0.1.3"
