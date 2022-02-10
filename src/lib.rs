@@ -41,13 +41,17 @@ unsafe extern "C" fn cb_menu_entry(_cb_type: i32, info: *mut c_void) {
     }
 }
 
+
 unsafe extern "C" fn cb_create_thread(_cb_type: i32, info: *mut c_void) {
     let info: *mut PLUG_CB_CREATETHREAD = info.cast();
-    if (*info).dwThreadId as u64 == DbgValFromString(dbs!("$XPause_ThreadId")) {
+    let thread_id=DbgValFromString(dbs!("$XPause_ThreadId")) as u32;
+    if (*info).dwThreadId == thread_id {
         DbgCmdExec(dbs!("killthread $XPause_ThreadId"));
         _plugin_logputs(dbs!("Paused!"));
     }
 }
+
+
 
 unsafe extern "C" fn cb_x_pause(_argc: i32, _argsv: *mut *mut c_char) -> bool {
     DbgCmdExecDirect(dbs!("createthread DebugBreak"));
